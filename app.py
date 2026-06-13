@@ -1237,6 +1237,8 @@ with t_files:
                      color="fail_rate", color_continuous_scale=["#48cfad","#ffd32a","#fc5c7d"],
                      title="Top 15 Concepts by Failure Rate", labels={"fail_rate":"Fail %","concept_name":""})
         fig.update_layout(**DARK, coloraxis_showscale=False)
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         crs_pass = concepts.groupby("course_id")["mastery_status"].apply(lambda x: (x=="passed").mean()*100).reset_index(name="pass_rate")
         crs_pass = crs_pass.merge(courses[["course_id","course_name"]], on="course_id")
@@ -1302,6 +1304,8 @@ with t_files:
             dt = engagement.groupby(["device","event_type"]).size().reset_index(name="count")
             fig2 = px.bar(dt, x="device", y="count", color="event_type", color_discrete_sequence=COLORS, barmode="stack", title="Events by Device")
             fig2.update_layout(**DARK)
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         em2 = engagement.copy(); em2["month"] = em2["event_datetime"].dt.to_period("M").astype(str)
         em3 = em2.groupby(["month","event_type"]).size().reset_index(name="count")
