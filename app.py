@@ -493,6 +493,7 @@ with t_main:
                       labels={"avg_score":"Avg Score","course_name":"Course"})
         fig2.update_layout(**DARK, coloraxis_showscale=False, xaxis_range=[0,100])
         fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig2, use_container_width=True)
     
     with right:
@@ -501,6 +502,8 @@ with t_main:
                       color_continuous_scale=["#48cfad","#ffd32a","#fc5c7d"], title="At-Risk Rate by Course",
                       labels={"risk_rate":"At-risk %","course_name":"Course"})
         fig3.update_layout(**DARK, coloraxis_showscale=False, xaxis_range=[0,100])
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         
 
@@ -546,6 +549,8 @@ with t_questions:
         fig.add_vline(x=pavg, line_dash="dash", line_color="#ffd32a",
                       annotation_text=f"Avg {pavg:.1f}%", annotation_position="top right")
         fig.update_layout(**DARK, title="Attendance Rate by Group", xaxis_title="Attendance %", xaxis_range=[0,115])
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         
         below = grp_att[grp_att["att_rate"] < pavg].sort_values("att_rate")
@@ -568,15 +573,21 @@ with t_questions:
             fig = px.box(grades, x="type", y="score", color="type", color_discrete_map=clr_map, points="outliers",
                          labels={"type":"Type","score":"Score"}, title="Score Distribution per Type")
             fig.update_layout(**DARK, showlegend=False)
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             fig2 = px.violin(grades, x="type", y="score", color="type", color_discrete_map=clr_map, box=True,
                              labels={"type":"Type","score":"Score"}, title="Density Shape per Type")
             fig2.update_layout(**DARK, showlegend=False)
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         fig3 = px.histogram(grades, x="score", color="type", nbins=40, barmode="overlay", opacity=0.7,
                             color_discrete_map=clr_map, labels={"score":"Score","type":"Type"}, title="Score Histogram — All Types Overlaid")
         fig3.update_layout(**DARK)
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         most_vol = stats2.sort_values("Std",ascending=False).iloc[0]
         obs(f"**{most_vol['Type'].title()}** is the most volatile (σ={most_vol['Std']:.1f}). "
@@ -602,6 +613,8 @@ with t_questions:
                          labels={"Mean":"Avg Score","Course":""})
             fig.update_traces(texttemplate="%{text}", textposition="outside")
             fig.update_layout(**DARK, coloraxis_showscale=False, xaxis_range=[0,110])
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             fig2 = px.bar(cstats.sort_values("Std"), x="Std", y="Course", orientation="h",
@@ -610,10 +623,14 @@ with t_questions:
                           labels={"Std":"Std Dev","Course":""})
             fig2.update_traces(texttemplate="%{text}", textposition="outside")
             fig2.update_layout(**DARK, coloraxis_showscale=False)
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         fig3 = px.box(g3, x="course_name", y="score", color="course_name", color_discrete_sequence=COLORS, points="outliers",
                       labels={"course_name":"Course","score":"Score"}, title="Full Score Distribution — All Courses")
         fig3.update_layout(**DARK, showlegend=False, xaxis_tickangle=-15)
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         obs(f"**{cstats.iloc[0]['Course']}** leads at {cstats.iloc[0]['Mean']:.1f} avg; "
             f"**{cstats.iloc[-1]['Course']}** lags at {cstats.iloc[-1]['Mean']:.1f}. "
@@ -636,6 +653,8 @@ with t_questions:
                          color_discrete_sequence=COLORS, labels={"att_rate":"Attendance (%)","avg_grade":"Avg Grade","course_name":"Course"},
                          title="Attendance Rate vs Average Grade (OLS trend)")
         fig.update_layout(**DARK)
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         df4["Band"] = pd.qcut(df4["att_rate"].rank(method="first"), 4, labels=["Q1 Low","Q2","Q3","Q4 High"])
         qdf = df4.groupby("Band")["avg_grade"].mean().reset_index()
@@ -644,6 +663,8 @@ with t_questions:
                       labels={"avg_grade":"Avg Grade"})
         fig2.update_traces(texttemplate="%{text}", textposition="outside")
         fig2.update_layout(**DARK, coloraxis_showscale=False, yaxis_range=[0,100])
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig2, use_container_width=True)
         obs(f"**{strength4} positive correlation** (r={corr:.3f}). "
             f"Top-quartile attendees score {qdf.iloc[-1]['avg_grade']-qdf.iloc[0]['avg_grade']:.1f} pts higher than the lowest quartile. "
@@ -670,7 +691,10 @@ with t_questions:
                              color_discrete_sequence=COLORS, labels={"logins":"Login Count","avg_grade":"Avg Grade","course_name":"Course"},
                              title="Login Frequency vs Avg Grade")
             fig.update_layout(**DARK)
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
+
         with col2:
             fig2 = px.scatter(df5, x="video_hrs", y="avg_grade", color="course_name", trendline="ols", opacity=0.6,
                               color_discrete_sequence=COLORS, labels={"video_hrs":"Video (hrs)","avg_grade":"Avg Grade","course_name":"Course"},
@@ -681,6 +705,8 @@ with t_questions:
         fig3 = px.pie(eng_counts, values="count", names="event_type", color_discrete_sequence=COLORS, hole=0.45,
                       title="Platform Event Type Breakdown")
         fig3.update_layout(**DARK)
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         obs(f"Login (r={r_login:.3f}) and video watch (r={r_video:.3f}) both positively associate with grades. "
             f"Students logging in more frequently and watching more content consistently trend toward higher performance.")
@@ -703,13 +729,18 @@ with t_questions:
                      title="Top 15 Concepts by Failure Rate")
         fig.update_traces(textposition="outside")
         fig.update_layout(**DARK, xaxis_range=[0,110])
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
+        
         heat6 = concepts.groupby(["course_id","concept_name"])["mastery_status"].apply(lambda x: (x=="failed").mean()*100).reset_index(name="fail_rate")
         heat6 = heat6.merge(courses[["course_id","course_name"]], on="course_id")
         pivot6 = heat6.pivot_table(index="course_name", columns="concept_name", values="fail_rate", fill_value=0)
         fig2 = px.imshow(pivot6, color_continuous_scale="Reds", aspect="auto",
                          title="Failure Rate Heatmap — Course × Concept", labels={"color":"Fail %"})
         fig2.update_layout(**DARK, xaxis_tickangle=-40)
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig2, use_container_width=True)
         obs(f"**{worst6}** in **{worst6_course}** has a {fail6.iloc[0]['fail_rate']:.1f}% failure rate — the single biggest curriculum weak spot. "
             f"The heatmap reveals systemic clusters: advanced algorithmic and ML concepts dominate failures. "
@@ -735,7 +766,9 @@ with t_questions:
         fig.add_trace(go.Bar(x=trend7["month"], y=trend7["attempts"], name="Attempts", marker_color="#6c63ff", opacity=0.4), secondary_y=True)
         fig.update_layout(**DARK, title=f"'{worst7}' — Cohort Pass Rate Over Time")
         fig.update_yaxes(title_text="Pass Rate %", secondary_y=False)
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
         fig.update_yaxes(title_text="Attempts", secondary_y=True)
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         trend_word = "improving" if d_val > 5 else ("declining" if d_val < -5 else "flat")
         obs(f"Mastery of **{worst7}** is **{trend_word}** (Δ{d_val:+.1f}pp over the term). "
@@ -761,6 +794,8 @@ with t_questions:
                          labels={"is_late":"Late","score":"Score"}, title="Score: Late vs On-Time")
             fig.update_layout(**DARK, showlegend=False)
             fig.update_xaxes(tickvals=[False,True], ticktext=["On Time","Late"])
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             sub8c = sub8[(sub8["buffer_hours"]>-500)&(sub8["buffer_hours"]<500)]
@@ -769,6 +804,8 @@ with t_questions:
                               labels={"buffer_hours":"Buffer (hrs)","score":"Score","is_late":"Late"},
                               title="Submission Buffer vs Score")
             fig2.update_layout(**DARK)
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         sub8["Band8"] = pd.cut(sub8["buffer_hours"].clip(-200,200), bins=[-200,-1,6,24,200], labels=["Late","<6h","6–24h",">24h"])
         band_avg = sub8.groupby("Band8")["score"].mean().reset_index()
@@ -777,6 +814,8 @@ with t_questions:
                       title="Avg Score by Submission Timing Band", labels={"Band8":"Timing","score":"Avg Score"})
         fig3.update_traces(texttemplate="%{text}", textposition="outside")
         fig3.update_layout(**DARK, coloraxis_showscale=False, yaxis_range=[0,100])
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         obs(f"Late submitters score **{ontime_avg-late_avg:.1f} pts lower** ({late_avg:.1f} vs {ontime_avg:.1f}). "
             f"The earlier a student submits, the higher they score — procrastination is a measurable academic risk. "
@@ -800,7 +839,10 @@ with t_questions:
         fig.update_layout(**DARK, title="Weekly Attendance & Engagement Over 6 Months")
         fig.update_yaxes(title_text="Attendance %", secondary_y=False)
         fig.update_yaxes(title_text="Events", secondary_y=True)
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
+
         att9["month"] = att9["session_datetime"].dt.month_name()
         att9["dow"]   = att9["session_datetime"].dt.day_name()
         heat9 = att9.groupby(["month","dow"]).apply(lambda x: (x["status"]=="attended").mean()*100).reset_index(name="rate")
@@ -810,6 +852,8 @@ with t_questions:
         fig2 = px.imshow(pivot9, color_continuous_scale="RdYlGn", aspect="auto",
                          title="Attendance Heatmap — Month × Day of Week", labels={"color":"Att %"})
         fig2.update_layout(**DARK)
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig2, use_container_width=True)
         att_dip = merged9.dropna(subset=["att_rate"])
         dip_week = att_dip.loc[att_dip["att_rate"].idxmin(), "week"]
@@ -880,6 +924,8 @@ with t_questions:
                          color_discrete_sequence=["#48cfad","#fc5c7d","#ffd32a","#6c63ff"], hole=0.45,
                          title="Student Segment Distribution")
             fig.update_layout(**DARK)
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             df11s = df11.merge(students[["student_id","course_name"]], on="student_id", how="left")
@@ -888,6 +934,8 @@ with t_questions:
                               labels={"att_rate":"Attendance %","avg_grade":"Avg Grade","segment":"Segment"},
                               title="Segments — Attendance vs Grade (size=logins)")
             fig2.update_layout(**DARK)
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         pal = ["#48cfad","#fc5c7d","#ffd32a","#6c63ff"]
         fig3 = go.Figure()
@@ -900,6 +948,8 @@ with t_questions:
             fig3.add_trace(go.Scatterpolar(r=vals+[vals[0]], theta=cats+[cats[0]], fill="toself",
                                             name=seg_labels[row["cluster"]], line=dict(color=pal[i])))
         fig3.update_layout(**DARK, polar=dict(bgcolor="#1a1d2e"), title="Segment Radar Profile (0–10 normalised)")
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         st.markdown("**Segment Summary:**")
         for label in set(seg_labels.values()):
@@ -927,6 +977,8 @@ with t_questions:
         fig.add_trace(go.Bar(name="Stated", x=comp12["group_name"], y=comp12["stated_num_students"], marker_color="#6c63ff", opacity=0.7))
         fig.add_trace(go.Bar(name="True (students.csv)", x=comp12["group_name"], y=comp12["true_count"], marker_color="#48cfad"))
         fig.update_layout(**DARK, barmode="group", title="Stated vs True Group Sizes", yaxis_title="Students", xaxis_tickangle=-15)
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         fig2 = px.bar(comp12.sort_values("disc_pct",ascending=False), x="group_name", y="disc_pct",
                       color="disc_pct", color_continuous_scale=["#48cfad","#ffd32a","#fc5c7d"],
@@ -934,6 +986,8 @@ with t_questions:
                       title="Overcount % per Group", labels={"disc_pct":"Overcount %","group_name":"Group"})
         fig2.update_traces(textposition="outside")
         fig2.update_layout(**DARK, coloraxis_showscale=False, yaxis_range=[0,120])
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig2, use_container_width=True)
         flagged12 = comp12[comp12["disc_pct"]>40]
         st.markdown("**🚩 Groups to investigate (>40% overcount):**")
@@ -957,6 +1011,8 @@ with t_questions:
         fig_sz.add_vline(x=10, line_dash="dash", line_color="#fc5c7d", annotation_text="Viability threshold")
         fig_sz.update_traces(textposition="outside")
         fig_sz.update_layout(**DARK, coloraxis_showscale=False)
+        fig_sz.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig_sz.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig_sz, use_container_width=True)
         if int(unviable["true_count"]) > 0:
             from scipy.stats import pearsonr
@@ -1012,6 +1068,8 @@ with t_questions:
                          title="Top 10 At-Risk Students", labels={"risk_score":"Risk Score","full_name":"Student"})
             fig.update_traces(textposition="outside")
             fig.update_layout(**DARK, coloraxis_showscale=False, xaxis_range=[0,120])
+            fig.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             fig2 = px.scatter(top10, x="att_rate", y="avg_grade", size="failed_c", color="risk_score",
@@ -1019,6 +1077,8 @@ with t_questions:
                               title="At-Risk: Attendance vs Grade", labels={"att_rate":"Att %","avg_grade":"Avg Grade"})
             fig2.update_traces(textposition="top center")
             fig2.update_layout(**DARK)
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         
     # Q15
@@ -1031,6 +1091,8 @@ with t_questions:
                       labels={"seq":"Assessment #","score":"Avg Score","group_name":"Group"},
                       title="Group Average Grade Across Successive Assessments")
         fig.update_layout(**DARK)
+        fig.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig, use_container_width=True)
         from scipy.stats import linregress
         slopes15 = []
@@ -1048,6 +1110,8 @@ with t_questions:
             fig2.add_vline(x=0, line_dash="dash", line_color="#ffd32a")
             fig2.update_traces(textposition="outside")
             fig2.update_layout(**DARK, coloraxis_showscale=False)
+            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig2, use_container_width=True)
         with col2:
             fl = trend15.groupby("group_name").apply(lambda x: pd.Series({"First":x.sort_values("seq").iloc[0]["score"],"Last":x.sort_values("seq").iloc[-1]["score"]})).reset_index()
@@ -1056,6 +1120,8 @@ with t_questions:
             fig3.add_trace(go.Bar(x=fl["group_name"], y=fl["First"], name="First Assessment", marker_color="#6c63ff"))
             fig3.add_trace(go.Bar(x=fl["group_name"], y=fl["Last"], name="Last Assessment", marker_color="#48cfad"))
             fig3.update_layout(**DARK, barmode="group", title="First vs Last Assessment Score", xaxis_tickangle=-20)
+            fig3.update_xaxes(tickfont_color="black", title_font_color="black")
+            fig3.update_yaxes(tickfont_color="black", title_font_color="black")
             st.plotly_chart(fig3, use_container_width=True)
         up15   = slope_df[slope_df["slope"]>0.05]["group_name"].tolist()
         down15 = slope_df[slope_df["slope"]<-0.05]["group_name"].tolist()
