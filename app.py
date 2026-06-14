@@ -1146,7 +1146,7 @@ with t_files:
             st.plotly_chart(fig, use_container_width=True)
         with col2:
             fig2 = px.pie(students, names="gender", hole=0.45, color_discrete_sequence=["#6c63ff","#fc5c7d"], title="Gender")
-            fig2.update_layout(**DARK)
+            fig2.update_layout(**DARK ,  legend_title_font=dict(color="black", size=14),legend=dict(font=dict(color="black")))
             st.plotly_chart(fig2, use_container_width=True)
         city_c = students["city"].value_counts().reset_index(); city_c.columns=["City","Count"]
         fig3 = px.bar(city_c.head(12), x="Count", y="City", orientation="h", color="Count", color_continuous_scale=SEQ, title="Top Cities")
