@@ -921,25 +921,16 @@ with t_questions:
         df11["segment"] = df11["cluster"].map(seg_labels)
         seg_counts = df11["segment"].value_counts().reset_index()
         seg_counts.columns = ["Segment","Count"]
-        col1,col2 = st.columns(2)
-        with col1:
-            fig = px.pie(seg_counts, values="Count", names="Segment",
-                         color_discrete_sequence=["#48cfad","#fc5c7d","#ffd32a","#6c63ff"], hole=0.45,
-                         title="Student Segment Distribution")
-            fig.update_layout(**DARK)
-            fig.update_xaxes(tickfont_color="black", title_font_color="black")
-            fig.update_yaxes(tickfont_color="black", title_font_color="black")
-            st.plotly_chart(fig, use_container_width=True)
-        with col2:
-            df11s = df11.merge(students[["student_id","course_name"]], on="student_id", how="left")
-            fig2 = px.scatter(df11s, x="att_rate", y="avg_grade", color="segment", size="logins", opacity=0.7,
-                              color_discrete_sequence=["#48cfad","#fc5c7d","#ffd32a","#6c63ff"],
-                              labels={"att_rate":"Attendance %","avg_grade":"Avg Grade","segment":"Segment"},
-                              title="Segments — Attendance vs Grade (size=logins)")
-            fig2.update_layout(**DARK)
-            fig2.update_xaxes(tickfont_color="black", title_font_color="black")
-            fig2.update_yaxes(tickfont_color="black", title_font_color="black")
-            st.plotly_chart(fig2, use_container_width=True)
+        df11s = df11.merge(students[["student_id","course_name"]], on="student_id", how="left")
+        fig2 = px.scatter(df11s, x="att_rate", y="avg_grade", color="segment", size="logins", opacity=0.7,
+                          color_discrete_sequence=["#48cfad","#fc5c7d","#ffd32a","#6c63ff"],
+                          labels={"att_rate":"Attendance %","avg_grade":"Avg Grade","segment":"Segment"},
+                          title="Segments — Attendance vs Grade (size=logins)")
+        fig2.update_layout(**DARK)
+        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+        st.plotly_chart(fig2, use_container_width=True)
+        
         pal = ["#48cfad","#fc5c7d","#ffd32a","#6c63ff"]
         fig3 = go.Figure()
         cats = ["Attendance","Avg Grade","Logins","Video","Mastery"]
@@ -951,8 +942,8 @@ with t_questions:
             fig3.add_trace(go.Scatterpolar(r=vals+[vals[0]], theta=cats+[cats[0]], fill="toself",
                                             name=seg_labels[row["cluster"]], line=dict(color=pal[i])))
         fig3.update_layout(**DARK, polar=dict(bgcolor="#1a1d2e"), title="Segment Radar Profile (0–10 normalised)")
-        fig2.update_xaxes(tickfont_color="black", title_font_color="black")
-        fig2.update_yaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_xaxes(tickfont_color="black", title_font_color="black")
+        fig3.update_yaxes(tickfont_color="black", title_font_color="black")
         st.plotly_chart(fig3, use_container_width=True)
         st.markdown("**Segment Summary:**")
         for label in set(seg_labels.values()):
