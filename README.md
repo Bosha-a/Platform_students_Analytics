@@ -4,7 +4,7 @@
 
 <!-- One-line tagline: what it does and who it's for -->
 
-> A comprehensive analytics platform for tracking and visualizing student academic performance, engagement, and learning outcomes.
+> A comprehensive analytics Dashboard for tracking and visualizing student academic performance, engagement, and learning outcomes.
 
 <!-- Shields / badges -->
 
@@ -108,7 +108,7 @@ export MONGO_URI="mongodb+srv://username:password@cluster.mongodb.net/"
 
 ## Usage
 
-[Dashboard Link](https://platformstudentsanalytics.streamlit.app/)
+[Click Here to open Dashboard](https://platformstudentsanalytics.streamlit.app/)
 
 This script loads all CSV files from the `data/` directory and uploads them to MongoDB collections.
 
