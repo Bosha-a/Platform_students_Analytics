@@ -836,7 +836,7 @@ with t_questions:
                                  line=dict(color="#48cfad",width=2.5), mode="lines"), secondary_y=False)
         fig.add_trace(go.Bar(x=merged9["week"], y=merged9["events"], name="Engagement Events",
                              marker_color="#6c63ff", opacity=0.5), secondary_y=True)
-        fig.update_layout(title="Weekly Attendance & Engagement Over 6 Months")
+        fig.update_layout(**DARK, title="Weekly Attendance & Engagement Over 6 Months")
         fig.update_yaxes(title_text="Attendance %", secondary_y=False, tickfont_color="black", title_font_color="black")
         fig.update_yaxes(title_text="Events", secondary_y=True, tickfont_color="black", title_font_color="black")
         fig.update_xaxes(tickfont_color="black",title_font_color="black")
